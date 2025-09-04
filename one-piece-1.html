@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Japanese Vocabulary Grid</title>
+  <style>
+    /* Print page size & margins */
+    @page {
+      size: letter;
+      margin: 0.5in;
+    }
+
+    :root {
+      --cell-height: 140px;
+      --border-color: #333;
+      --ink-strong: #000;
+      --ink-medium: #666;
+      --ink-light: #888;
+      --page-width: 7.5in;
+      /* keeps print width stable */
+      --gap: 0;
+    }
+
+    /* Base */
+    body {
+      font-family: 'Noto Sans JP', 'Meiryo', system-ui, -apple-system, Segoe UI, Roboto, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #fff;
+      color: #111;
+    }
+
+    header {
+      text-align: center;
+      margin: 0 0 16px 0;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: var(--page-width);
+    }
+
+    /* Sections (logical pages) */
+    section.page {
+      page-break-after: always;
+      margin: 0 auto 20px;
+    }
+
+    section.page:last-child {
+      page-break-after: auto;
+    }
+
+    section.page h2 {
+      text-align: center;
+      font-size: 18px;
+      margin: 0 0 4px 0;
+      font-weight: 700;
+    }
+
+    section.page h3 {
+      text-align: center;
+      font-size: 15px;
+      margin: 0 0 16px 0;
+      font-weight: 500;
+      color: #555;
+    }
+
+    /* Grid as list */
+    .grid {
+      display: grid;
+      gap: var(--gap);
+      margin: 0 0 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* Screen: responsive columns; Print: 4 columns fixed */
+    @media screen {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+    }
+
+    @media print {
+      body {
+        padding: 0;
+      }
+
+      main {
+        max-width: var(--page-width);
+      }
+
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      section.page {
+        margin: 0;
+      }
+    }
+
+    /* Cells */
+    .cell {
+      border: 2px solid var(--border-color);
+      padding: 10px;
+      height: var(--cell-height);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #fff;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .cell.toggled {
+      background: #7cffdd;
+    }
+
+    .japanese {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink-strong);
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .romaji {
+      font-size: 14px;
+      color: var(--ink-medium);
+      margin-bottom: 3px;
+      font-style: italic;
+      line-height: 1.2;
+    }
+
+    .english {
+      font-size: 12px;
+      color: var(--ink-light);
+      line-height: 1.2;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 id="doc-title">Japanese Vocabulary Grid</h1>
+  </header>
+
+  <main aria-labelledby="doc-title">
+    <!-- 00:00:17 - 00:02:00 -->
+    <section class="page" role="region" aria-labelledby="sec-000017-title sec-000017-sub">
+      <h2 id="sec-000017-title">00:00:17 - 00:02:00</h2>
+      <h3 id="sec-000017-sub">Opening Narration</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">富</div>
+          <div class="romaji">tomi</div>
+          <div class="english">wealth</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">名声</div>
+          <div class="romaji">meisei</div>
+          <div class="english">fame</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">力</div>
+          <div class="romaji">chikara</div>
+          <div class="english">power</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">世</div>
+          <div class="romaji">yo</div>
+          <div class="english">world/era</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">全て</div>
+          <div class="romaji">subete</div>
+          <div class="english">everything</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">男</div>
+          <div class="romaji">otoko</div>
+          <div class="english">man</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">海賊王</div>
+          <div class="romaji">kaizoku-ō</div>
+          <div class="english">Pirate King</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゴールド･ロジャー</div>
+          <div class="romaji">Gōrudo Rojā</div>
+          <div class="english">Gold Roger</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">死に際</div>
+          <div class="romaji">shinigiwa</div>
+          <div class="english">moment of death</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">一言</div>
+          <div class="romaji">hitokoto</div>
+          <div class="english">one word</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">人々</div>
+          <div class="romaji">hitobito</div>
+          <div class="english">people</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">海</div>
+          <div class="romaji">umi</div>
+          <div class="english">sea</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">財宝</div>
+          <div class="romaji">zaihō</div>
+          <div class="english">treasure</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">探せ</div>
+          <div class="romaji">sagase</div>
+          <div class="english">search!</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">男たち</div>
+          <div class="romaji">otoko-tachi</div>
+          <div class="english">men</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">偉大なる航路</div>
+          <div class="romaji">idai naru kōro</div>
+          <div class="english">Grand Line</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">夢</div>
+          <div class="romaji">yume</div>
+          <div class="english">dream</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">大海賊時代</div>
+          <div class="romaji">dai kaizoku jidai</div>
+          <div class="english">Great Pirate Era</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:02:06 - 00:04:00 -->
+    <section class="page" role="region" aria-labelledby="sec-000206-title sec-000206-sub">
+      <h2 id="sec-000206-title">00:02:06 - 00:04:00</h2>
+      <h3 id="sec-000206-sub">Ship Scene & Pirate Attack</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">船員</div>
+          <div class="romaji">sen'in</div>
+          <div class="english">crew member</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">船長</div>
+          <div class="romaji">senchō</div>
+          <div class="english">captain</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">心配</div>
+          <div class="romaji">shinpai</div>
+          <div class="english">worry</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">渦</div>
+          <div class="romaji">uzu</div>
+          <div class="english">whirlpool</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">船</div>
+          <div class="romaji">fune</div>
+          <div class="english">ship</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">障害</div>
+          <div class="romaji">shōgai</div>
+          <div class="english">obstacle</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">踊って</div>
+          <div class="romaji">odotte</div>
+          <div class="english">dance</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">酒だる</div>
+          <div class="romaji">sakadaru</div>
+          <div class="english">sake barrel</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">船影</div>
+          <div class="romaji">funakage</div>
+          <div class="english">ship silhouette</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">海賊旗</div>
+          <div class="romaji">kaizoku-ki</div>
+          <div class="english">pirate flag</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">海賊船</div>
+          <div class="romaji">kaizoku-sen</div>
+          <div class="english">pirate ship</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">敵襲</div>
+          <div class="romaji">tekishū</div>
+          <div class="english">enemy attack</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">叫び声</div>
+          <div class="romaji">sakebi-goe</div>
+          <div class="english">scream</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">落ち着いて</div>
+          <div class="romaji">ochitsuite</div>
+          <div class="english">calm down</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">冷静</div>
+          <div class="romaji">reisei</div>
+          <div class="english">composure</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">指示</div>
+          <div class="romaji">shiji</div>
+          <div class="english">instructions</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">撃て</div>
+          <div class="romaji">ute</div>
+          <div class="english">shoot!</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">美しい</div>
+          <div class="romaji">utsukushii</div>
+          <div class="english">beautiful</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">女海賊</div>
+          <div class="romaji">onna kaizoku</div>
+          <div class="english">female pirate</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">金棒</div>
+          <div class="romaji">kanabō</div>
+          <div class="english">iron club</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:04:01 - 00:08:00 -->
+    <section class="page" role="region" aria-labelledby="sec-000401-title sec-000401-sub">
+      <h2 id="sec-000401-title">00:04:01 - 00:08:00</h2>
+      <h3 id="sec-000401-sub">Alvida's Introduction & Luffy Appears</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">泣き声</div>
+          <div class="romaji">naki-goe</div>
+          <div class="english">crying voice</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">抵抗</div>
+          <div class="romaji">teikō</div>
+          <div class="english">resistance</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">運ぼう</div>
+          <div class="romaji">hakobō</div>
+          <div class="english">carry</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">口答え</div>
+          <div class="romaji">kuchigotae</div>
+          <div class="english">talk back</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">笑い声</div>
+          <div class="romaji">warai-goe</div>
+          <div class="english">laughter</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">寝た</div>
+          <div class="romaji">neta</div>
+          <div class="english">slept</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">苦手</div>
+          <div class="romaji">nigate</div>
+          <div class="english">weak at</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">死ね</div>
+          <div class="romaji">shine</div>
+          <div class="english">die!</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">金めのもん</div>
+          <div class="romaji">kane me no mon</div>
+          <div class="english">valuables</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">殺されちゃいます</div>
+          <div class="romaji">korosare-chaimasu</div>
+          <div class="english">will be killed</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">刑</div>
+          <div class="romaji">kei</div>
+          <div class="english">punishment</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">風邪</div>
+          <div class="romaji">kaze</div>
+          <div class="english">cold</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">喉</div>
+          <div class="romaji">nodo</div>
+          <div class="english">throat</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">臆病者</div>
+          <div class="romaji">okubyō-mono</div>
+          <div class="english">coward</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">命</div>
+          <div class="romaji">inochi</div>
+          <div class="english">life</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">黙ってりゃ</div>
+          <div class="romaji">damatte-rya</div>
+          <div class="english">keep quiet</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">藻くず</div>
+          <div class="romaji">mokuzu</div>
+          <div class="english">seaweed scraps</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">腹減っちゃって</div>
+          <div class="romaji">hara hetchatte</div>
+          <div class="english">got hungry</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">逃げ込んで</div>
+          <div class="romaji">nigekonde</div>
+          <div class="english">escape into</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">よろしく</div>
+          <div class="romaji">yoroshiku</div>
+          <div class="english">nice to meet you</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:08:01 - 00:10:00 -->
+    <section class="page" role="region" aria-labelledby="sec-000801-title sec-000801-sub">
+      <h2 id="sec-000801-title">00:08:01 - 00:10:00</h2>
+      <h3 id="sec-000801-sub">Koby's Backstory</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">小舟</div>
+          <div class="romaji">kobune</div>
+          <div class="english">small boat</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">釣り</div>
+          <div class="romaji">tsuri</div>
+          <div class="english">fishing</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">箱</div>
+          <div class="romaji">hako</div>
+          <div class="english">box</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">連れて</div>
+          <div class="romaji">tsurete</div>
+          <div class="english">bring</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">運命</div>
+          <div class="romaji">unmei</div>
+          <div class="english">fate</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">仲間</div>
+          <div class="romaji">nakama</div>
+          <div class="english">comrade</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">大渦</div>
+          <div class="romaji">ōuzu</div>
+          <div class="english">giant whirlpool</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">雑用係</div>
+          <div class="romaji">zatsuyō-gakari</div>
+          <div class="english">errand boy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">襲ってる</div>
+          <div class="romaji">osotteru</div>
+          <div class="english">attacking</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">帰ってきたら</div>
+          <div class="romaji">kaette kitara</div>
+          <div class="english">when return</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">町外れ</div>
+          <div class="romaji">machi-hazure</div>
+          <div class="english">outskirts</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">死にます</div>
+          <div class="romaji">shinimasu</div>
+          <div class="english">will die</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">甲板</div>
+          <div class="romaji">kanpan</div>
+          <div class="english">deck</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">向かう</div>
+          <div class="romaji">mukau</div>
+          <div class="english">head toward</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">客船</div>
+          <div class="romaji">kyakusen</div>
+          <div class="english">passenger ship</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">代わり</div>
+          <div class="romaji">kawari</div>
+          <div class="english">in exchange</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">食いもん</div>
+          <div class="romaji">kuimon</div>
+          <div class="english">food</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">乗った</div>
+          <div class="romaji">notta</div>
+          <div class="english">boarded</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">殺さない</div>
+          <div class="romaji">korosanai</div>
+          <div class="english">won't kill</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">働け</div>
+          <div class="romaji">hatarake</div>
+          <div class="english">work!</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:10:01 - 00:12:00 -->
+    <section class="page" role="region" aria-labelledby="sec-001001-title sec-001001-sub">
+      <h2 id="sec-001001-title">00:10:01 - 00:12:00</h2>
+      <h3 id="sec-001001-sub">Luffy & Koby's Conversation</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">嫌なら</div>
+          <div class="romaji">iya nara</div>
+          <div class="english">if you hate it</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">根性なし</div>
+          <div class="romaji">konjō nashi</div>
+          <div class="english">gutless</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">大漁</div>
+          <div class="romaji">tairyō</div>
+          <div class="english">big haul</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">バカ</div>
+          <div class="romaji">baka</div>
+          <div class="english">fool</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">考える</div>
+          <div class="romaji">kangaeru</div>
+          <div class="english">think</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">変なヤツ</div>
+          <div class="romaji">hen na yatsu</div>
+          <div class="english">weird guy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">逃げれば</div>
+          <div class="romaji">nigereba</div>
+          <div class="english">if you escape</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ムリ</div>
+          <div class="romaji">muri</div>
+          <div class="english">impossible</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">餌食</div>
+          <div class="romaji">ejiki</div>
+          <div class="english">prey/victim</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">海軍</div>
+          <div class="romaji">kaigun</div>
+          <div class="english">navy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">度胸</div>
+          <div class="romaji">dokyō</div>
+          <div class="english">courage</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">見つかったら</div>
+          <div class="romaji">mitsukattara</div>
+          <div class="english">if found</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ドジ</div>
+          <div class="romaji">doji</div>
+          <div class="english">clumsy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">賞金稼ぎ</div>
+          <div class="romaji">shōkin kasegi</div>
+          <div class="english">bounty hunter</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">怖くて</div>
+          <div class="romaji">kowakute</div>
+          <div class="english">scared</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">嫌い</div>
+          <div class="romaji">kirai</div>
+          <div class="english">dislike</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">金持ち</div>
+          <div class="romaji">kanemochi</div>
+          <div class="english">rich</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">足がすくんで</div>
+          <div class="romaji">ashi ga sukunde</div>
+          <div class="english">legs freeze</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">バケモン</div>
+          <div class="romaji">bakemon</div>
+          <div class="english">monster</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">漂流</div>
+          <div class="romaji">hyōryū</div>
+          <div class="english">drift</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:12:01 - 00:14:00 -->
+    <section class="page" role="region" aria-labelledby="sec-001201-title sec-001201-sub">
+      <h2 id="sec-001201-title">00:12:01 - 00:14:00</h2>
+      <h3 id="sec-001201-sub">Becoming Pirate King</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">称号</div>
+          <div class="romaji">shōgō</div>
+          <div class="english">title</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">狙ってる</div>
+          <div class="romaji">neratteru</div>
+          <div class="english">targeting</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ワンピース</div>
+          <div class="romaji">wan pīsu</div>
+          <div class="english">One Piece</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">本気</div>
+          <div class="romaji">honki</div>
+          <div class="english">serious</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">頂点</div>
+          <div class="romaji">chōten</div>
+          <div class="english">summit</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">大秘宝</div>
+          <div class="romaji">dai-hihō</div>
+          <div class="english">great treasure</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">殴る</div>
+          <div class="romaji">naguru</div>
+          <div class="english">punch</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">やりたいこと</div>
+          <div class="romaji">yaritai koto</div>
+          <div class="english">what I want to do</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">世界中</div>
+          <div class="romaji">sekai-jū</div>
+          <div class="english">whole world</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">慣れてる</div>
+          <div class="romaji">nareteru</div>
+          <div class="english">used to it</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">目指す</div>
+          <div class="romaji">mezasu</div>
+          <div class="english">aim for</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">絶対</div>
+          <div class="romaji">zettai</div>
+          <div class="english">absolutely</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ひとつなぎ</div>
+          <div class="romaji">hitotsu-nagi</div>
+          <div class="english">one piece</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">なりたい</div>
+          <div class="romaji">naritai</div>
+          <div class="english">want to become</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">立つ</div>
+          <div class="romaji">tatsu</div>
+          <div class="english">stand</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">何となく</div>
+          <div class="romaji">nantonaku</div>
+          <div class="english">somehow</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">できるわけない</div>
+          <div class="romaji">dekiru wake nai</div>
+          <div class="english">no way possible</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">決めた</div>
+          <div class="romaji">kimeta</div>
+          <div class="english">decided</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">戦って</div>
+          <div class="romaji">tatakatte</div>
+          <div class="english">fight</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">死ぬ</div>
+          <div class="romaji">shinu</div>
+          <div class="english">die</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:14:01 - 00:16:00 -->
+    <section class="page" role="region" aria-labelledby="sec-001401-title sec-001401-sub">
+      <h2 id="sec-001401-title">00:14:01 - 00:16:00</h2>
+      <h3 id="sec-001401-sub">Koby's Dream</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">気前のいい</div>
+          <div class="romaji">kimae no ii</div>
+          <div class="english">generous</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">入れる</div>
+          <div class="romaji">haireru</div>
+          <div class="english">can enter</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">考えたこと</div>
+          <div class="romaji">kangaeta koto</div>
+          <div class="english">thought about</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">別にいい</div>
+          <div class="romaji">betsu ni ii</div>
+          <div class="english">it's fine</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">雑用</div>
+          <div class="romaji">zatsuyō</div>
+          <div class="english">chores</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">死ぬ気</div>
+          <div class="romaji">shinu ki</div>
+          <div class="english">prepared to die</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">頼めば</div>
+          <div class="romaji">tanomeba</div>
+          <div class="english">if I ask</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">もらってく</div>
+          <div class="romaji">moratteku</div>
+          <div class="english">receive and go</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">小さい頃</div>
+          <div class="romaji">chiisai koro</div>
+          <div class="english">childhood</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">取り締まる</div>
+          <div class="romaji">torishimaru</div>
+          <div class="english">crack down</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">腹も膨れた</div>
+          <div class="romaji">hara mo fukureta</div>
+          <div class="english">stomach full</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">一生</div>
+          <div class="romaji">isshō</div>
+          <div class="english">whole life</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">悪いヤツ</div>
+          <div class="romaji">warui yatsu</div>
+          <div class="english">bad guy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">知らねえ</div>
+          <div class="romaji">shiranee</div>
+          <div class="english">don't know</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">終える</div>
+          <div class="romaji">oeru</div>
+          <div class="english">end</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">抜け出して</div>
+          <div class="romaji">nukedashite</div>
+          <div class="english">escape</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">捕まえて</div>
+          <div class="romaji">tsukamaete</div>
+          <div class="english">capture</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゴツい</div>
+          <div class="romaji">gotsui</div>
+          <div class="english">burly</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">おばさん</div>
+          <div class="romaji">obasan</div>
+          <div class="english">middle-aged woman</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:16:01 - 00:18:00 -->
+    <section class="page" role="region" aria-labelledby="sec-001601-title sec-001601-sub">
+      <h2 id="sec-001601-title">00:16:01 - 00:18:00</h2>
+      <h3 id="sec-001601-sub">Alvida Confrontation</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">悔い</div>
+          <div class="romaji">kui</div>
+          <div class="english">regret</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">いかつい</div>
+          <div class="romaji">ikatsui</div>
+          <div class="english">tough-looking</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">入って</div>
+          <div class="romaji">haitte</div>
+          <div class="english">enter</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">クソババア</div>
+          <div class="romaji">kuso babaa</div>
+          <div class="english">old hag (rude)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">分かってる</div>
+          <div class="romaji">wakatteru</div>
+          <div class="english">understand</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">言った</div>
+          <div class="romaji">itta</div>
+          <div class="english">said</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">やっつける</div>
+          <div class="romaji">yattsukeru</div>
+          <div class="english">defeat</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">戦った</div>
+          <div class="romaji">tatakatta</div>
+          <div class="english">fought</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">とっ捕まえて</div>
+          <div class="romaji">tottsukamaete</div>
+          <div class="english">arrest</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">効かない</div>
+          <div class="romaji">kikanai</div>
+          <div class="english">doesn't work</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゴム</div>
+          <div class="romaji">gomu</div>
+          <div class="english">rubber</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゴム人間</div>
+          <div class="romaji">gomu ningen</div>
+          <div class="english">rubber human</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">悪魔の実</div>
+          <div class="romaji">akuma no mi</div>
+          <div class="english">Devil Fruit</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">食べた</div>
+          <div class="romaji">tabeta</div>
+          <div class="english">ate</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゴムゴムの実</div>
+          <div class="romaji">gomu gomu no mi</div>
+          <div class="english">Gum-Gum Fruit</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">食った</div>
+          <div class="romaji">kutta</div>
+          <div class="english">ate (casual)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ウワサ</div>
+          <div class="romaji">uwasa</div>
+          <div class="english">rumor</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">聞いちゃいた</div>
+          <div class="romaji">kiichaita</div>
+          <div class="english">had heard</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ホント</div>
+          <div class="romaji">honto</div>
+          <div class="english">really</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">実在</div>
+          <div class="romaji">jitsuzai</div>
+          <div class="english">existence</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:18:01 - 00:20:00 -->
+    <section class="page" role="region" aria-labelledby="sec-001801-title sec-001801-sub">
+      <h2 id="sec-001801-title">00:18:01 - 00:20:00</h2>
+      <h3 id="sec-001801-sub">Luffy's Powers Revealed</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">見つける</div>
+          <div class="romaji">mitsukeru</div>
+          <div class="english">find</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">一番強</div>
+          <div class="romaji">ichiban tsuyoi</div>
+          <div class="english">strongest</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">腕も立つ</div>
+          <div class="romaji">ude mo tatsu</div>
+          <div class="english">skilled</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">威力</div>
+          <div class="romaji">iryoku</div>
+          <div class="english">power</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">青い</div>
+          <div class="romaji">aoi</div>
+          <div class="english">blue</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">敵どうし</div>
+          <div class="romaji">teki dōshi</div>
+          <div class="english">enemies</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">空</div>
+          <div class="romaji">sora</div>
+          <div class="english">sky</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">見た</div>
+          <div class="romaji">mita</div>
+          <div class="english">saw</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">入る</div>
+          <div class="romaji">hairu</div>
+          <div class="english">enter/join</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">入隊</div>
+          <div class="romaji">nyūtai</div>
+          <div class="english">enlistment</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">捕まっちゃいます</div>
+          <div class="romaji">tsukamacchaimasu</div>
+          <div class="english">will be caught</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">状況</div>
+          <div class="romaji">jōkyō</div>
+          <div class="english">situation</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">逃げ出せました</div>
+          <div class="romaji">nigedasemashita</div>
+          <div class="english">managed to escape</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">おもしろかった</div>
+          <div class="romaji">omoshirokatta</div>
+          <div class="english">was fun</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">グランドライン</div>
+          <div class="romaji">gurando rain</div>
+          <div class="english">Grand Line</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">行く</div>
+          <div class="romaji">iku</div>
+          <div class="english">go</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">墓場</div>
+          <div class="romaji">hakaba</div>
+          <div class="english">graveyard</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">呼ばれてる</div>
+          <div class="romaji">yobareteru</div>
+          <div class="english">called</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">強い</div>
+          <div class="romaji">tsuyoi</div>
+          <div class="english">strong</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">必要</div>
+          <div class="romaji">hitsuyō</div>
+          <div class="english">necessary</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:20:01 - 00:22:00 -->
+    <section class="page" role="region" aria-labelledby="sec-002001-title sec-002001-sub">
+      <h2 id="sec-002001-title">00:20:01 - 00:22:00</h2>
+      <h3 id="sec-002001-sub">End of Battle & Escape</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">海賊狩り</div>
+          <div class="romaji">kaizoku-gari</div>
+          <div class="english">pirate hunter</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">聞きました</div>
+          <div class="romaji">kikimashita</div>
+          <div class="english">heard</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">海軍基地</div>
+          <div class="romaji">kaigun kichi</div>
+          <div class="english">naval base</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゾロ</div>
+          <div class="romaji">Zoro</div>
+          <div class="english">Zoro (name)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">魔獣</div>
+          <div class="romaji">majū</div>
+          <div class="english">demonic beast</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">捕まってる</div>
+          <div class="romaji">tsukamatteru</div>
+          <div class="english">captured</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">恐ろしい</div>
+          <div class="romaji">osoroshii</div>
+          <div class="english">terrifying</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">弱っちい</div>
+          <div class="romaji">yowacchii</div>
+          <div class="english">weak</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">仲間にして</div>
+          <div class="romaji">nakama ni shite</div>
+          <div class="english">make a comrade</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">いいヤツ</div>
+          <div class="romaji">ii yatsu</div>
+          <div class="english">good guy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">悪い</div>
+          <div class="romaji">warui</div>
+          <div class="english">bad</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ムチャ</div>
+          <div class="romaji">mucha</div>
+          <div class="english">reckless</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">コビー</div>
+          <div class="romaji">Kobī</div>
+          <div class="english">Koby (name)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">アルビダ</div>
+          <div class="romaji">Arubida</div>
+          <div class="english">Alvida (name)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ルフィ</div>
+          <div class="romaji">Rufi</div>
+          <div class="english">Luffy (name)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">モンキー･Ｄ･ルフィ</div>
+          <div class="romaji">Monkī D Rufi</div>
+          <div class="english">Monkey D. Luffy</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ゴールド･ロジャー</div>
+          <div class="romaji">Gōrudo Rojā</div>
+          <div class="english">Gold Roger</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ナミ</div>
+          <div class="romaji">Nami</div>
+          <div class="english">Nami (name)</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ロロノア･ゾロ</div>
+          <div class="romaji">Roronoa Zoro</div>
+          <div class="english">Roronoa Zoro</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ピストル</div>
+          <div class="romaji">pisutoru</div>
+          <div class="english">pistol</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 00:22:01 - 00:24:00 -->
+    <section class="page" role="region" aria-labelledby="sec-002201-title sec-002201-sub">
+      <h2 id="sec-002201-title">00:22:01 - 00:24:00</h2>
+      <h3 id="sec-002201-sub">Next Episode Preview</h3>
+      <ul class="grid" role="list">
+        <li class="cell" role="listitem">
+          <div class="japanese">縄</div>
+          <div class="romaji">nawa</div>
+          <div class="english">rope</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">卑怯</div>
+          <div class="romaji">hikyō</div>
+          <div class="english">cowardly</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">ロケット</div>
+          <div class="romaji">roketto</div>
+          <div class="english">rocket</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">後悔</div>
+          <div class="romaji">kōkai</div>
+          <div class="english">regret</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">大勢</div>
+          <div class="romaji">ōzei</div>
+          <div class="english">many people</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">お断り</div>
+          <div class="romaji">okotowari</div>
+          <div class="english">refusal</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">解いて</div>
+          <div class="romaji">hoite</div>
+          <div class="english">untie</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">勝手</div>
+          <div class="romaji">katte</div>
+          <div class="english">selfish</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">大剣豪</div>
+          <div class="romaji">dai-kengō</div>
+          <div class="english">great swordsman</div>
+        </li>
+        <li class="cell" role="listitem">
+          <div class="japanese">現る</div>
+          <div class="romaji">arawaru</div>
+          <div class="english">appear</div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const cells = document.querySelectorAll('.cell');
+      const STORAGE_KEY = 'vocabulary-toggles';
+
+      // Load saved toggle states
+      function loadToggles() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const toggledIndices = JSON.parse(saved);
+          toggledIndices.forEach(index => {
+            if (cells[index]) {
+              cells[index].classList.add('toggled');
+            }
+          });
+        }
+      }
+
+      // Save current toggle states
+      function saveToggles() {
+        const toggledIndices = [];
+        cells.forEach((cell, index) => {
+          if (cell.classList.contains('toggled')) {
+            toggledIndices.push(index);
+          }
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(toggledIndices));
+      }
+
+      // Add click handlers
+      cells.forEach(cell => {
+        cell.addEventListener('click', function () {
+          this.classList.toggle('toggled');
+          saveToggles();
+        });
+      });
+
+      // Load saved states on page load
+      loadToggles();
+    });
+  </script>
+</body>
+
+</html>

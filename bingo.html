@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Japanese Vocabulary Bingo</title>
+  <style>
+    /* Print page size & margins */
+    @page {
+      size: letter;
+      margin: 0.5in;
+    }
+
+    :root {
+      --cell-size: 80px;
+      --border-color: #333;
+      --ink-strong: #000;
+      --ink-medium: #666;
+      --ink-light: #888;
+      --page-width: 7.5in;
+      --gap: 2px;
+      --selected-color: #7cffdd;
+    }
+
+    /* Base */
+    body {
+      font-family: 'Noto Sans JP', 'Meiryo', system-ui, -apple-system, Segoe UI, Roboto, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #fff;
+      color: #111;
+    }
+
+    header {
+      text-align: center;
+      margin: 0 0 20px 0;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #007acc;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .collection-info {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .collection-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 0 5px 0;
+      color: var(--ink-strong);
+    }
+
+    .collection-meta {
+      font-size: 14px;
+      color: var(--ink-medium);
+      margin: 0;
+    }
+
+    .controls {
+      text-align: center;
+      margin: 0 0 30px 0;
+    }
+
+    .controls button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 10px;
+      font-family: inherit;
+    }
+
+    .controls button:hover {
+      background: #005a99;
+    }
+
+    /* View mode controls */
+    .view-controls {
+      text-align: center;
+      margin: 0 0 20px 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .view-controls button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .view-controls button:hover {
+      background: #1e7e34;
+    }
+
+    .view-controls button.active {
+      background: #155724;
+    }
+
+    /* Navigation controls for single card view */
+    .navigation {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .navigation.show {
+      display: flex;
+    }
+
+    .nav-button {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-button:hover:not(:disabled) {
+      background: #495057;
+    }
+
+    .nav-button:disabled {
+      background: #dee2e6;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .card-counter {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--ink-strong);
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Bingo Card */
+    .bingo-card {
+      page-break-inside: avoid;
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .bingo-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 0 15px 0;
+      color: var(--ink-strong);
+    }
+
+    .bingo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, var(--cell-size));
+      grid-template-rows: repeat(3, var(--cell-size));
+      gap: var(--gap);
+      margin: 0 auto;
+      width: fit-content;
+    }
+
+    /* Mobile: vertical 3x5 layout */
+    @media screen and (max-width: 768px) {
+      .bingo-grid {
+        grid-template-columns: repeat(3, var(--cell-size));
+        grid-template-rows: repeat(5, var(--cell-size));
+      }
+    }
+
+    .bingo-cell {
+      border: 2px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      padding: 4px;
+      position: relative;
+    }
+
+    .bingo-cell:hover {
+      background: #f0f0f0;
+    }
+
+    .bingo-cell.marked {
+      background: var(--selected-color);
+    }
+
+    .bingo-cell.free-space {
+      background: #e8e8e8;
+      cursor: default;
+    }
+
+    .bingo-cell.free-space:hover {
+      background: #e8e8e8;
+    }
+
+    .japanese {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-strong);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .romaji {
+      font-size: 8px;
+      color: var(--ink-medium);
+      font-style: italic;
+      line-height: 1.1;
+      margin-bottom: 1px;
+    }
+
+    .english {
+      font-size: 7px;
+      color: var(--ink-light);
+      line-height: 1.1;
+    }
+
+    .free-space .japanese {
+      font-size: 14px;
+      color: var(--ink-strong);
+    }
+
+    /* Single card view */
+    .single-card-view main {
+      display: block;
+      padding: 0;
+    }
+
+    .single-card-view .bingo-card {
+      display: none;
+    }
+
+    .single-card-view .bingo-card.active {
+      display: block;
+      margin: 0 auto;
+      padding: 0;
+      background: transparent;
+    }
+
+    /* Hide everything else in single card view on mobile */
+    @media screen and (max-width: 768px) {
+      .single-card-view header,
+      .single-card-view .view-controls,
+      .single-card-view .controls {
+        display: none;
+      }
+      
+      .single-card-view body {
+        padding: 5px;
+        background: white;
+      }
+      
+      .single-card-view .navigation {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 8px 15px;
+        border-radius: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .single-card-view .bingo-card.active {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 5px;
+      }
+
+      .single-card-view .bingo-title {
+        margin-bottom: 15px;
+        font-size: 22px;
+      }
+      
+      .single-card-view :root {
+        --cell-size: calc((100vw - 30px) / 3.1);
+        --gap: 5px;
+      }
+      
+      .single-card-view .japanese {
+        font-size: 16px;
+      }
+
+      .single-card-view .romaji {
+        font-size: 12px;
+      }
+
+      .single-card-view .english {
+        font-size: 11px;
+      }
+    }
+
+    /* Loading state */
+    .loading {
+      text-align: center;
+      padding: 50px;
+      font-size: 18px;
+      color: var(--ink-medium);
+    }
+
+    .error {
+      text-align: center;
+      padding: 50px;
+      color: #dc3545;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    @media screen and (max-width: 768px) {
+      :root {
+        --cell-size: 85px;
+        --gap: 5px;
+      }
+
+      body {
+        padding: 10px;
+      }
+
+      header h1 {
+        font-size: 24px;
+      }
+
+      main {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .bingo-card {
+        width: 100%;
+        max-width: 95vw;
+        padding: 10px;
+      }
+
+      .bingo-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .japanese {
+        font-size: 15px;
+      }
+
+      .romaji {
+        font-size: 11px;
+      }
+
+      .english {
+        font-size: 10px;
+      }
+
+      .controls button {
+        padding: 8px 12px;
+        font-size: 14px;
+        margin: 5px;
+      }
+
+      .view-controls {
+        margin-bottom: 15px;
+      }
+
+      .view-controls button {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .collection-info {
+        padding: 10px;
+        margin-bottom: 15px;
+      }
+
+      .collection-title {
+        font-size: 18px;
+      }
+    }
+
+    @media print {
+      body {
+        padding: 0;
+      }
+
+      .controls,
+      .view-controls,
+      .navigation,
+      .back-link,
+      .collection-info {
+        display: none;
+      }
+
+      main {
+        gap: 20px;
+      }
+
+      .bingo-card {
+        margin: 0 auto 20px;
+        page-break-after: always;
+      }
+
+      .bingo-card:last-child {
+        page-break-after: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="back-link">← Back to Collections</a>
+    <h1 id="doc-title">Japanese Vocabulary Bingo</h1>
+    
+    <div class="collection-info" id="collection-info" style="display: none;">
+      <div class="collection-title" id="collection-title"></div>
+      <div class="collection-meta" id="collection-meta"></div>
+    </div>
+  </header>
+
+  <div class="view-controls">
+    <button onclick="setViewMode('all')" id="view-all" class="active">View All Cards</button>
+    <button onclick="setViewMode('single')" id="view-single">Single Card View</button>
+  </div>
+
+  <div class="controls">
+    <button onclick="generateCards()">Generate New Cards</button>
+    <button onclick="clearAllMarks()">Clear All Marks</button>
+    <button onclick="window.print()">Print Cards</button>
+  </div>
+
+  <div class="navigation" id="navigation">
+    <button class="nav-button" onclick="previousCard()" id="prev-btn">‹</button>
+    <div class="card-counter" id="card-counter">Card 1 of 4</div>
+    <button class="nav-button" onclick="nextCard()" id="next-btn">›</button>
+  </div>
+
+  <main id="bingo-container">
+    <div class="loading" id="loading">Loading vocabulary...</div>
+  </main>
+
+  <!-- Load collections configuration -->
+  <script src="collections-config.js"></script>
+  
+  <script>
+    // Global variables
+    let vocabularyData = null;
+    let allVocabulary = [];
+    let currentViewMode = 'all';
+    let currentCardIndex = 0;
+    let totalCards = 4;
+    let currentCollection = null;
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCollection();
+    });
+
+    // Load collection based on URL parameter
+    async function loadCollection() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const collectionId = urlParams.get('collection');
+      
+      if (!collectionId) {
+        showError('No collection specified. Please select a collection from the home page.');
+        return;
+      }
+
+      const collection = getCollection(collectionId);
+      if (!collection) {
+        showError(`Collection "${collectionId}" not found.`);
+        return;
+      }
+
+      currentCollection = collection;
+      
+      // Update page title and info
+      document.getElementById('page-title').textContent = `${collection.title} - Bingo`;
+      document.getElementById('doc-title').textContent = collection.title;
+      
+      const collectionInfo = document.getElementById('collection-info');
+      document.getElementById('collection-title').textContent = collection.title;
+      document.getElementById('collection-meta').textContent = 
+        `${collection.wordCount} words • ${collection.difficulty} • ${collection.category}`;
+      collectionInfo.style.display = 'block';
+
+      // Load vocabulary data
+      try {
+        await loadVocabularyData(collection.dataFile);
+        generateCards();
+      } catch (error) {
+        console.error('Error loading vocabulary:', error);
+        showError('Failed to load vocabulary data. Please try again.');
+      }
+    }
+
+    // Load vocabulary data from external file
+    async function loadVocabularyData(dataFile) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = dataFile;
+        script.onload = function() {
+          // Check for different possible variable names
+          if (typeof onePieceZMovieVocabulary !== 'undefined') {
+            vocabularyData = onePieceZMovieVocabulary;
+          } else if (typeof onePieceEpisode1Vocabulary !== 'undefined') {
+            vocabularyData = onePieceEpisode1Vocabulary;
+          } else {
+            reject(new Error('Vocabulary data not found in file'));
+            return;
+          }
+          
+          // Combine all vocabulary into one array
+          allVocabulary = [];
+          Object.values(vocabularyData).forEach(category => {
+            if (Array.isArray(category)) {
+              allVocabulary.push(...category);
+            }
+          });
+          
+          hideLoading();
+          resolve();
+        };
+        script.onerror = () => reject(new Error('Failed to load vocabulary file'));
+        document.head.appendChild(script);
+      });
+    }
+
+    // Function to shuffle array
+    function shuffleArray(array) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    // Function to get random words from different categories
+    function getRandomWords(count) {
+      const words = [];
+      const categories = Object.keys(vocabularyData);
+      
+      // Ensure we get words from multiple categories
+      const wordsPerCategory = Math.ceil(count / categories.length);
+      
+      categories.forEach(category => {
+        const categoryWords = shuffleArray(vocabularyData[category]);
+        words.push(...categoryWords.slice(0, wordsPerCategory));
+      });
+      
+      // Fill remaining slots with random words from all vocabulary
+      while (words.length < count) {
+        const randomWord = allVocabulary[Math.floor(Math.random() * allVocabulary.length)];
+        if (!words.find(w => w.japanese === randomWord.japanese)) {
+          words.push(randomWord);
+        }
+      }
+      
+      return shuffleArray(words).slice(0, count);
+    }
+
+    // Function to get center cell index based on screen size
+    function getCenterCellIndex() {
+      // Check if mobile (same breakpoint as CSS)
+      if (window.innerWidth <= 768) {
+        // 3x5 grid: center is index 7 (middle of column 2, row 3)
+        return 7;
+      } else {
+        // 5x3 grid: center is index 7 (middle of row 2, column 3)
+        return 7;
+      }
+    }
+
+    // Function to create a single bingo card
+    function createBingoCard(cardNumber) {
+      const cardDiv = document.createElement('div');
+      cardDiv.className = 'bingo-card';
+      
+      const title = document.createElement('div');
+      title.className = 'bingo-title';
+      title.textContent = `BINGO ${cardNumber}`;
+      cardDiv.appendChild(title);
+      
+      const grid = document.createElement('div');
+      grid.className = 'bingo-grid';
+      
+      // Get 14 random words (15 cells - 1 free space)
+      const words = getRandomWords(14);
+      let wordIndex = 0;
+      const centerIndex = getCenterCellIndex();
+      
+      // Create 15-cell grid (works for both 3x5 and 5x3)
+      for (let i = 0; i < 15; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'bingo-cell';
+        
+        // Center cell is free space
+        if (i === centerIndex) {
+          cell.className += ' free-space';
+          cell.innerHTML = `
+            <div class="japanese">FREE</div>
+          `;
+        } else {
+          const word = words[wordIndex++];
+          cell.innerHTML = `
+            <div class="japanese">${word.japanese}</div>
+            <div class="romaji">${word.romaji}</div>
+            <div class="english">${word.english}</div>
+          `;
+          
+          // Add click handler for marking
+          cell.addEventListener('click', function() {
+            this.classList.toggle('marked');
+            saveBingoState();
+          });
+        }
+        
+        grid.appendChild(cell);
+      }
+      
+      cardDiv.appendChild(grid);
+      return cardDiv;
+    }
+
+    // View mode functions
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      const body = document.body;
+      const viewAllBtn = document.getElementById('view-all');
+      const viewSingleBtn = document.getElementById('view-single');
+      const navigation = document.getElementById('navigation');
+
+      if (mode === 'single') {
+        body.classList.add('single-card-view');
+        viewAllBtn.classList.remove('active');
+        viewSingleBtn.classList.add('active');
+        navigation.classList.add('show');
+        updateSingleCardView();
+      } else {
+        body.classList.remove('single-card-view');
+        viewAllBtn.classList.add('active');
+        viewSingleBtn.classList.remove('active');
+        navigation.classList.remove('show');
+        showAllCards();
+      }
+    }
+
+    function updateSingleCardView() {
+      const cards = document.querySelectorAll('.bingo-card');
+      cards.forEach((card, index) => {
+        if (index === currentCardIndex) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+      updateNavigation();
+    }
+
+    function showAllCards() {
+      const cards = document.querySelectorAll('.bingo-card');
+      cards.forEach(card => {
+        card.classList.remove('active');
+      });
+    }
+
+    function updateNavigation() {
+      const counter = document.getElementById('card-counter');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+
+      counter.textContent = `Card ${currentCardIndex + 1} of ${totalCards}`;
+      prevBtn.disabled = currentCardIndex === 0;
+      nextBtn.disabled = currentCardIndex === totalCards - 1;
+    }
+
+    function previousCard() {
+      if (currentCardIndex > 0) {
+        currentCardIndex--;
+        updateSingleCardView();
+        saveBingoState();
+      }
+    }
+
+    function nextCard() {
+      if (currentCardIndex < totalCards - 1) {
+        currentCardIndex++;
+        updateSingleCardView();
+        saveBingoState();
+      }
+    }
+
+    // Generate bingo cards
+    function generateCards(numCards = 4) {
+      if (!vocabularyData) {
+        showError('Vocabulary data not loaded yet. Please wait.');
+        return;
+      }
+      
+      totalCards = numCards;
+      currentCardIndex = 0;
+      const container = document.getElementById('bingo-container');
+      container.innerHTML = '';
+      
+      for (let i = 1; i <= numCards; i++) {
+        container.appendChild(createBingoCard(i));
+      }
+      
+      loadBingoState();
+      
+      // Update view based on current mode
+      if (currentViewMode === 'single') {
+        updateSingleCardView();
+      } else {
+        showAllCards();
+      }
+      updateNavigation();
+    }
+
+    // Clear all marks
+    function clearAllMarks() {
+      const cells = document.querySelectorAll('.bingo-cell.marked');
+      cells.forEach(cell => cell.classList.remove('marked'));
+      saveBingoState();
+    }
+
+    // Save bingo state to localStorage
+    function saveBingoState() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const collectionId = urlParams.get('collection');
+      
+      const cards = document.querySelectorAll('.bingo-card');
+      const state = {
+        viewMode: currentViewMode,
+        currentCardIndex: currentCardIndex,
+        cards: []
+      };
+      
+      cards.forEach((card, cardIndex) => {
+        const cells = card.querySelectorAll('.bingo-cell');
+        const cardState = [];
+        
+        cells.forEach((cell, cellIndex) => {
+          cardState.push({
+            marked: cell.classList.contains('marked'),
+            content: cell.innerHTML
+          });
+        });
+        
+        state.cards.push(cardState);
+      });
+      
+      localStorage.setItem(`bingo-state-${collectionId}`, JSON.stringify(state));
+    }
+
+    // Load bingo state from localStorage
+    function loadBingoState() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const collectionId = urlParams.get('collection');
+      
+      const savedState = localStorage.getItem(`bingo-state-${collectionId}`);
+      if (!savedState) return;
+      
+      try {
+        const state = JSON.parse(savedState);
+        const cards = document.querySelectorAll('.bingo-card');
+        
+        // Restore card marks
+        cards.forEach((card, cardIndex) => {
+          if (state.cards && state.cards[cardIndex]) {
+            const cells = card.querySelectorAll('.bingo-cell');
+            
+            cells.forEach((cell, cellIndex) => {
+              const cellState = state.cards[cardIndex][cellIndex];
+              if (cellState && cellState.content === cell.innerHTML) {
+                if (cellState.marked) {
+                  cell.classList.add('marked');
+                }
+              }
+            });
+          }
+        });
+        
+        // Restore view mode and current card
+        if (state.viewMode) {
+          currentCardIndex = state.currentCardIndex || 0;
+          setViewMode(state.viewMode);
+        }
+      } catch (e) {
+        console.log('Could not load saved state');
+      }
+    }
+
+    // Utility functions
+    function hideLoading() {
+      const loading = document.getElementById('loading');
+      if (loading) loading.style.display = 'none';
+    }
+
+    function showError(message) {
+      const container = document.getElementById('bingo-container');
+      container.innerHTML = `<div class="error"><h3>Error</h3><p>${message}</p></div>`;
+    }
+  </script>
+</body>
+
+</html>

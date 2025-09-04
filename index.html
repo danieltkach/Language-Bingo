@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Japanese Vocabulary Bingo Collections</title>
+  <style>
+    /* Base styles */
+    :root {
+      --primary-color: #007acc;
+      --primary-hover: #005a99;
+      --secondary-color: #28a745;
+      --secondary-hover: #1e7e34;
+      --border-color: #333;
+      --text-primary: #111;
+      --text-secondary: #666;
+      --text-light: #888;
+      --bg-light: #f8f9fa;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', 'Meiryo', system-ui, -apple-system, Segoe UI, Roboto, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-light);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      padding: 20px 0;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    header .subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Main content */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .intro {
+      background: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .intro h2 {
+      font-size: 24px;
+      margin: 0 0 15px 0;
+      color: var(--text-primary);
+    }
+
+    .intro p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin: 0 0 20px 0;
+    }
+
+    /* Filter controls */
+    .filters {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .filters button {
+      background: white;
+      color: var(--text-secondary);
+      border: 2px solid var(--border-color);
+      padding: 8px 16px;
+      margin: 5px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .filters button:hover,
+    .filters button.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    /* Collections grid */
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    /* Collection card */
+    .collection-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .collection-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .collection-card.hidden {
+      display: none;
+    }
+
+    .card-header {
+      padding: 25px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      color: var(--text-primary);
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      gap: 4px;
+    }
+
+    .difficulty-badge {
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .difficulty-beginner {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .difficulty-intermediate {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .difficulty-advanced {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .card-description {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .card-actions {
+      padding: 20px 25px;
+      background: var(--bg-light);
+    }
+
+    .play-button {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.3s ease;
+    }
+
+    .play-button:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .empty-state h3 {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin: 0 0 10px 0;
+    }
+
+    .empty-state p {
+      color: var(--text-light);
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    /* Responsive design */
+    @media screen and (max-width: 768px) {
+      header h1 {
+        font-size: 24px;
+      }
+
+      header .subtitle {
+        font-size: 16px;
+      }
+
+      .intro {
+        padding: 20px;
+      }
+
+      .intro h2 {
+        font-size: 20px;
+      }
+
+      .collections-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .card-meta {
+        gap: 10px;
+      }
+
+      .meta-item {
+        font-size: 13px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      main {
+        padding: 0 10px;
+      }
+
+      .card-header,
+      .card-actions {
+        padding: 15px 20px;
+      }
+
+      .filters button {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Japanese Vocabulary Bingo</h1>
+      <p class="subtitle">Learn Japanese through interactive bingo games</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Choose Your Collection</h2>
+      <p>Select a vocabulary collection to start playing bingo. Each collection features carefully curated words from different anime episodes and movies.</p>
+    </section>
+
+    <section class="filters">
+      <button class="filter-btn active" data-filter="all">All Collections</button>
+      <button class="filter-btn" data-filter="beginner">Beginner</button>
+      <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+      <button class="filter-btn" data-filter="advanced">Advanced</button>
+      <button class="filter-btn" data-filter="episode">Episodes</button>
+      <button class="filter-btn" data-filter="movie">Movies</button>
+    </section>
+
+    <section class="collections-grid" id="collections-grid">
+      <!-- Collections will be loaded here by JavaScript -->
+    </section>
+
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <h3>No collections found</h3>
+      <p>Try selecting a different filter or check back later for new collections.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Japanese Vocabulary Bingo - Learn Japanese through interactive games</p>
+  </footer>
+
+  <!-- Load collections configuration -->
+  <script src="collections-config.js"></script>
+  
+  <script>
+    // DOM elements
+    const collectionsGrid = document.getElementById('collections-grid');
+    const emptyState = document.getElementById('empty-state');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    // Current filter state
+    let currentFilter = 'all';
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCollections();
+      initializeFilters();
+    });
+
+    // Load and display collections
+    function loadCollections() {
+      const collections = getAllCollections();
+      
+      if (Object.keys(collections).length === 0) {
+        showEmptyState();
+        return;
+      }
+
+      collectionsGrid.innerHTML = '';
+      
+      Object.entries(collections).forEach(([id, collection]) => {
+        const card = createCollectionCard(id, collection);
+        collectionsGrid.appendChild(card);
+      });
+
+      applyFilter(currentFilter);
+    }
+
+    // Create a collection card element
+    function createCollectionCard(id, collection) {
+      const card = document.createElement('div');
+      card.className = 'collection-card';
+      card.dataset.id = id;
+      card.dataset.difficulty = collection.difficulty.toLowerCase();
+      card.dataset.category = collection.category.toLowerCase();
+      
+      card.innerHTML = `
+        <div class="card-header">
+          <h3 class="card-title">${collection.title}</h3>
+          <div class="card-meta">
+            <div class="meta-item">
+              <span>📚</span>
+              <span>${collection.wordCount} words</span>
+            </div>
+            <div class="meta-item">
+              <span>🎯</span>
+              <span class="difficulty-badge difficulty-${collection.difficulty.toLowerCase()}">${collection.difficulty}</span>
+            </div>
+            <div class="meta-item">
+              <span>📺</span>
+              <span>${collection.category}</span>
+            </div>
+          </div>
+          <p class="card-description">${collection.description}</p>
+        </div>
+        <div class="card-actions">
+          <button class="play-button" onclick="playCollection('${id}')">
+            Play Bingo
+          </button>
+        </div>
+      `;
+
+      return card;
+    }
+
+    // Initialize filter functionality
+    function initializeFilters() {
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const filter = this.dataset.filter;
+          
+          // Update active button
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Apply filter
+          currentFilter = filter;
+          applyFilter(filter);
+        });
+      });
+    }
+
+    // Apply filter to collections
+    function applyFilter(filter) {
+      const cards = document.querySelectorAll('.collection-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const difficulty = card.dataset.difficulty;
+        const category = card.dataset.category;
+        let shouldShow = false;
+
+        switch(filter) {
+          case 'all':
+            shouldShow = true;
+            break;
+          case 'beginner':
+          case 'intermediate':  
+          case 'advanced':
+            shouldShow = difficulty === filter;
+            break;
+          case 'episode':
+          case 'movie':
+            shouldShow = category === filter;
+            break;
+        }
+
+        if (shouldShow) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Show/hide empty state
+      if (visibleCount === 0) {
+        showEmptyState();
+      } else {
+        hideEmptyState();
+      }
+    }
+
+    // Show empty state
+    function showEmptyState() {
+      emptyState.style.display = 'block';
+      collectionsGrid.style.display = 'none';
+    }
+
+    // Hide empty state
+    function hideEmptyState() {
+      emptyState.style.display = 'none';
+      collectionsGrid.style.display = 'grid';
+    }
+
+    // Navigate to collection bingo page
+    function playCollection(collectionId) {
+      // Use the new dynamic bingo template
+      window.location.href = `bingo.html?collection=${collectionId}`;
+    }
+  </script>
+</body>
+
+</html>
